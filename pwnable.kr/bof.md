@@ -251,5 +251,7 @@ LOW MEMORY ADDRESS
 ```
 CPU will read from lower to higher addresses. So BE will be read first, then BA, FE, CA. In little-endian, data is built from right to left, so we end up with 0xcafebabe! (yay, super confusing ngl)
 
+I also learnt that arguments start from the higher address, and variables start from the lower address (buffer written from lower to higher address even though stack is growing in the opposite direction)
+
 Pretty challenging CTF for me, spent about 2 days on this, but very rewarding!
 
