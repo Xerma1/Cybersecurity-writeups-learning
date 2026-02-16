@@ -36,9 +36,10 @@ This looks like a buffer overflow exploit. The vulnerable "gets" function doesn'
 I will try to use Radare2 to disassemble the executable file.
 ```
 r2 -d ./bof
-aaa
-s sym.func
-pdf
+aaa  # Analyse All
+s sym.func  # sym stands for symbol, sym.func means an identifier for a function that has symbolic information available in the binary's metadata.
+# Can use afl (Analyse Function List) to see all the functions available
+pdf  # Print Disassemble Function
 ```
 We end up with this:
 ```
@@ -102,7 +103,7 @@ I look for when the gets function is called. Right before the gets function, we 
 
 This tells me that [var_2ch] is overflowme and [arg_8h] is key. Now I need to find out how far they are from each other.
 ```
-afv
+afv    # Analyse Function Variables
 
 arg int32_t arg_8h @ ebp+0x8
 var int32_t var_8h @ ebp-0x8
