@@ -27,7 +27,7 @@ int main(int argc, char* argv[]){
 * Buffer overflow via stack smashing
 
 # Method of Solving
-Looking at the code given to me, I see a function that has an argument "int key" that creates a local variable named "overflowme", which is a char array of 32 bytes. The program will then get user input through the "gets" function and store it into "overflowme". Afterwards, an if-statement checks whether the key equals "0xcafebabe". If it is, it runs a shellscript; otherwise, it prints "Nah.. ". 
+Looking at the code given to me, I see a function that has an argument "int key". It has a local variable named "overflowme", which is a char array of 32 bytes. The program will then get user input through the "gets" function and store it into "overflowme". Afterwards, an if-statement checks whether the key equals "0xcafebabe". If it is, it runs a shellscript; otherwise, it prints "Nah.. ". 
 
 Looking at the main function, it calls the function with the argument "0xdeadbeef".
 
