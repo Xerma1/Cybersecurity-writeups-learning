@@ -154,7 +154,7 @@ Daddy_I_just_pwned_a_buff3r!
 
 # Reflection
 
-First time using the buffer overflow exploit that I learnt in my lectures from my course SC3010 Computer Security module, I struggled at first as I thought that the stack looks like this (what was taught in my lectures: 
+First time using the buffer overflow exploit that I learnt in my lectures from my course SC3010 Computer Security module, I struggled at first as I thought that the stack looks like this (what was taught in my lectures): 
 
 ```
 HIGH MEMORY ADDRESS
