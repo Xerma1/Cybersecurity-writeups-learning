@@ -234,7 +234,7 @@ HIGH MEMORY ADDRESS
     +-------------------------+ <--- ebp + 0x2C, our input starts here
 LOW MEMORY ADDRESS
 ```
-I learnt how to use RaDare2 to break down the executable and perform reverse engineering to figure out the exact number of bytes for my payload.
+I learnt how to use Radare2 to break down the executable and perform reverse engineering to figure out the exact number of bytes for my payload.
 
 I also learnt that this system uses little endian, so the last 4 bytes of the payload should be \xbe\xba\xfe\xca. Therefore in memory, it looks like this:
 ```
