@@ -195,7 +195,7 @@ HIGH MEMORY ADDRESS
     +-------------------------+
 LOW MEMORY ADDRESS
 ```
-Therefore, I thought I needed 48 bytes of padding and 4 bytes for the key. I was wrong. Therefore I need RaDare2 to disassemble the executable to see what the stack really looks like. 
+Therefore, I thought I needed 48 bytes of padding and 4 bytes for the key. I was wrong. Therefore I need Radare2 to disassemble the executable to see what the stack really looks like. 
 ```
 HIGH MEMORY ADDRESS
     +-------------------------+ <--- ebp + 0x8
