@@ -183,7 +183,7 @@ Within `c:\Users\Administrator\Documents`, we find `flag.txt`. Catting it out, w
 # Reflection
 This THM room taught me the basic atttack methodogy for pentesting systems: port scanning for open services (nmap), enumeration of the services(gobuster is OP), finding vulnerabilites and exploiting it. In this case, we used a bit of OSINT to find the vulnerability by searching up the build number of the service and checking whether it is outdated and riddled with security flaws. Spend about 4 hours on this room 💀 and I did read a writeup for this room because I had no clue how to start. Going forward, I will attempt future CTFs with this methodology in mind.<br>
 
-I also realised the attack sequence is quite similar to the allien dockerlabs machine that I did before this. The vulnerability is different (SMB), but it also does port scanning first
+I also realised the attack sequence is quite similar to the allien dockerlabs machine that I did before this. The vulnerability is different (SMB), but it also does port scanning first, and then vulnerability discovery, username enumeration, password brute forcing, and then finally, a reverse shell code inject to get root access too. p cool, much to learn still, like how exactly does reverse shell work.
 
 
 
