@@ -130,7 +130,7 @@ ternary 0t1221
 ```
 The distance between the start of key to the start of overflowme is 52 bytes. Since the size of key is 4bytes, I now know that the payload has 52 bytes of padding and another 4 bytes for 0xcafebabe!
 
-I then wrote a short Python script using pwntools to connect to the bof server, generate the payload and send it to the server:
+I then ChatGPT'ed a Python script using pwntools to connect to the bof server, generate the payload and send it to the server:
 ```
 from pwn import *
 
