@@ -123,7 +123,7 @@ and click run!
 
 Success! We are now running Shell on the remote machine. After exploring the file directories for a while, I found the second flag!<br>
 
-![alt](https://i.imgur.com/OQaK2GI.png)
+![alt](https://i.pinimg.com/736x/d6/16/75/d6167536fcd5561850d86ed597a12cf5.jpg)
 
 The `TODO.txt` has something interesting in it as well:
 ```
@@ -158,7 +158,7 @@ PS C:\Users\dev\Desktop> (Get-Command ExSetup.exe).FileVersionInfo.ProductVersio
 
 We have the version number, doing a quick google search reveals the name of the build:
 
-![alt](https://i.imgur.com/NTe87we.png)
+![alt](https://i.pinimg.com/736x/1c/c6/37/1cc637e6eba61bea28c7d00ccb6beb64.jpg)
 
 After ChatGPTing, we discover that this build has a critical vulnerability: Remote Code Execution (RCE). As of this writeup, I have no idea how this exploit works. So I use Metasploit, a pentesting framwork that has hundred of exploits and payloads, all we have to do is set up some parameters and hit run.
 
@@ -174,7 +174,7 @@ search exchange rce
 ```
 Running these commands:<br>
 
-![alt](https://i.imgur.com/VFNYG2Y.png)
+![alt](https://i.pinimg.com/736x/0c/7c/1f/0c7c1f6795946c3d6654e0c83b37aeab.jpg)
 
 Exploit ran successfully! We are now running shell as the user NT AUTHORITY/SYSTEM. Seems like a rather privileged user lul.<br>
 
