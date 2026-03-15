@@ -25,7 +25,7 @@ hdd1CWXH
 R6flYmhD
 cRdawYlr
 ```
-Attempting to login after a failed attempt will block me from trying for the next 20 minutes. While I could realistically wait between each login in this challenge, since there are only so many passwords, in a real password brute-forcing attack, iterating through millions of passwords is gonna take decades.
+Attempting to login after a failed attempt will block me from trying for the next 20 minutes. While I could realistically wait between each login in this challenge (since there are only so many passwords), in a real password brute-forcing attack, iterating through millions of passwords is gonna take decades.
 
 ## Method: Bypassing rate limitation via IP rotation
 
