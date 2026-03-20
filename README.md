@@ -1,3 +1,3 @@
 # Cybersecurity-writeups-learning
 
-All my writeups for most CTFs that I have done, with reflections at the end!
+All my/ other ppl's writeups for most CTFs I have attempted for knowledge retention
